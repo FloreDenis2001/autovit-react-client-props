@@ -2,15 +2,25 @@ import React, { useEffect, useState } from 'react'
 import Masina from '../models/Masina';
 import ServiceCar from '../services/Api';
 import { Car } from './Car';
-const  Home:React.FC=()=>{
+import { NEWCAR } from '../utile/constante';
+
+interface PageProps{
+    setPage:(page: string)=>(void);
+}
+
+const  Home:React.FC<PageProps>=({setPage})=>{
+
  let serviceCar=new ServiceCar();
+
  let [cars,setCars]=useState(Array<Masina>);
+
 let getAllCars = async () : Promise<void>=>{
+    
     let data = await serviceCar.getAllCars();
     setCars(data);
 }
 
-useEffect(()=>{getAllCars},[]);
+useEffect(()=>{getAllCars()},[]);
 
 return(
     <>
@@ -35,7 +45,7 @@ return(
                 </tbody>
             </table>
 
-            <button type='button'>Add Car</button>
+            <button type='button' onClick={()=>setPage(NEWCAR)}>Add Car</button>
     </>
 );
 

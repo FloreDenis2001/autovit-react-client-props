@@ -1,5 +1,5 @@
 export default interface Masina {
-    id:number,
+    id?:number,
     an:number,
     culoare:String,
     marca:String,
