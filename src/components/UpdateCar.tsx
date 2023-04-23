@@ -6,10 +6,9 @@ import Masina from '../models/Masina';
 interface PageProps{
     setPage:(page: string)=>(void);
     masinaId:number;
-    changeListOfCars:(masina:Masina)=>void
 }
 
-const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
+const UpdateCar:React.FC<PageProps>=({setPage,masinaId}) => {
 
     let serviceCar = new ServiceCar();
 
@@ -73,7 +72,6 @@ const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
         if(errors.length==0){
         await serviceCar.updateCar(car);
         setTimeout(() => {
-            setPage(HOME);
         }, 2500)
 
         successNotification("Updated","masina","topRight");
@@ -86,10 +84,11 @@ const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
 
     let deleteCar = async () => {
 
-        await serviceCar.deleteCar(car);
-        changeListOfCars(car);
+        let res = await serviceCar.deleteCar(car);
+        if (res != null) {
+        }
+
         setTimeout(() => {
-            setPage(HOME);
         }, 2500)
 
     }
