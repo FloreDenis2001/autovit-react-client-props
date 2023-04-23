@@ -7,9 +7,10 @@ interface PageProps{
     setPage:(page: string)=>(void);
     masinaId:number;
     changeListOfCars:(masina:Masina)=>void
+    updatedCar:(car:Masina)=>void
 }
 
-const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
+const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars,updatedCar}) => {
 
     let serviceCar = new ServiceCar();
 
@@ -71,7 +72,9 @@ const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
         checkErros();
 
         if(errors.length==0){
-        await serviceCar.updateCar(car);
+        let newcar = await serviceCar.updateCar(car);
+        let findByIdCar = await serviceCar.findCarById(car.id);
+        updatedCar(findByIdCar);
         setTimeout(() => {
             setPage(HOME);
         }, 2500)
@@ -101,7 +104,6 @@ const UpdateCar:React.FC<PageProps>=({setPage,masinaId,changeListOfCars}) => {
             try{
 
                 let findByIdCar = await serviceCar.findCarById(masinaId);
-                console.log(findByIdCar);
                 setAnul(findByIdCar!.an);
                 setCuloare(findByIdCar!.culoare);
                 setMarca(findByIdCar!.marca);
