@@ -43,6 +43,11 @@ function addCar(masina:Masina){
   setCars(auxCar);
 }
 
+function removeCar(masina:Masina){
+   let auxCar=cars.filter(car=>car.id!==masina.id);
+   setCars(auxCar);
+}
+
 
   let [page,setPage]=useState(HOME);
 
@@ -67,7 +72,7 @@ function addCar(masina:Masina){
             return <NewCar setPage={setPage} changeListOfmasini={addCar}/>;
 
           case UPDATECAR:
-            return <UpdateCar setPage={setPage} masinaId={updatedId} />
+            return <UpdateCar setPage={setPage} masinaId={updatedId} changeListOfCars={removeCar} />
 
           default:
             return <Home setUpdatedId={handleUpdateId} setPage={setPage} cars={cars}/>;
