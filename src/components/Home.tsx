@@ -6,21 +6,12 @@ import { NEWCAR } from '../utile/constante';
 
 interface PageProps{
     setPage:(page: string)=>(void);
+    cars:Masina[];
 }
 
-const  Home:React.FC<PageProps>=({setPage})=>{
+const  Home:React.FC<PageProps>=({setPage,cars})=>{
 
- let serviceCar=new ServiceCar();
 
- let [cars,setCars]=useState(Array<Masina>);
-
-let getAllCars = async () : Promise<void>=>{
-    
-    let data = await serviceCar.getAllCars();
-    setCars(data);
-}
-
-useEffect(()=>{getAllCars()},[]);
 
 return(
     <>

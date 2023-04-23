@@ -6,15 +6,16 @@ import { HOME } from '../utile/constante';
 
 interface PageProps{
     setPage:(page:string)=>void;
+    changeListOfmasini:(masina:Masina)=>void;
 }
 
-const NewCar: React.FC<PageProps> = ({setPage}) => {
+const NewCar: React.FC<PageProps> = ({setPage,changeListOfmasini}) => {
 
     let serviceCar = new ServiceCar();
     const [marca, setMarca] = useState("");
     const [model, setModel] = useState("");
     const [culoare, setCuloare] = useState("");
-    const [anul, setAnul] = useState(1864);
+    const [anul, setAnul] = useState(1886);
 
 
     const [errors, setErrors] = useState([""])
@@ -38,9 +39,10 @@ const NewCar: React.FC<PageProps> = ({setPage}) => {
 
         if(errors.length==0){
 
-        await serviceCar.addCar(car);
+          let newcar = await serviceCar.addCar(car) ;
           setAdded(true);
           setTimeout(()=>{setPage(HOME)},1500);
+          changeListOfmasini(car);
            successNotification("A fost adaugat","masina","topRight");
         }else{
             errors.forEach((err)=>{
