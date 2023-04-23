@@ -1,4 +1,5 @@
 import Masina from "../models/Masina";
+import React from "react"
 
 interface CarProps{
     car:Masina;
