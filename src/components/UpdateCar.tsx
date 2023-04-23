@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react'
 import ServiceCar from '../services/Api';
 import { errorNotification, successNotification } from './Notification';
 import { HOME } from '../utile/constante';
+import Masina from '../models/Masina';
 interface PageProps{
     setPage:(page: string)=>(void);
+    masinaId:number;
 }
 
-const UpdateCar:React.FC<PageProps>=({setPage}) => {
+const UpdateCar:React.FC<PageProps>=({setPage,masinaId}) => {
 
     let serviceCar = new ServiceCar();
 
-    const [marca, setMarca] = useState("");
+    const [marca, setMarca] = useState(" ");
     const [culoare, setCuloare] = useState("");
-    const [anul, setAnul] = useState(1864);
-    const [model,setModel]=useState("");
-
-    let { id } = useParams();
-
+    const [anul, setAnul] = useState(1886);
+    const [model,setModel]=useState(" ");
   
     const [car, setCar] = useState(Object);
 
@@ -54,14 +53,13 @@ const UpdateCar:React.FC<PageProps>=({setPage}) => {
         
 
         setCar({
-            id: id,
+            id: masinaId,
             marca: marca !== '' ? marca : undefined,
             culoare: culoare !== '' ? culoare : undefined,
             an: anul !== 0 ? anul : undefined,
             model:model
         });
         
-        console.table(car);
 
 
     }, [marca, culoare, anul]);
@@ -97,16 +95,16 @@ const UpdateCar:React.FC<PageProps>=({setPage}) => {
 
     let findById = async () => {
 
-        if (id) {
+        if (masinaId!==null) {
            
             try{
 
-                let findByIdCar = await serviceCar.findCarById(id);
+                let findByIdCar = await serviceCar.findCarById(masinaId);
                 console.log(findByIdCar);
-                // setAnul(findByIdCar!.an);
-                // setCuloare(findByIdCar!.culoare);
-                // setMarca(findByIdCar!.marca);
-                // setModel(findByIdCar!.model);
+                setAnul(findByIdCar!.an);
+                setCuloare(findByIdCar!.culoare);
+                setMarca(findByIdCar!.marca);
+                setModel(findByIdCar!.model);
     
 
             }catch(eroare){
@@ -171,7 +169,3 @@ const UpdateCar:React.FC<PageProps>=({setPage}) => {
 }
 
 export default UpdateCar;
-function useParams(): { id: any; } {
-    throw new Error('Function not implemented.');
-}
-

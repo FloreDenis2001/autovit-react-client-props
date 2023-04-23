@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Masina from '../models/Masina';
 import ServiceCar from '../services/Api';
 import { Car } from './Car';
-import { NEWCAR } from '../utile/constante';
+import { HOME, NEWCAR } from '../utile/constante';
 
 interface PageProps{
     setPage:(page: string)=>(void);
     cars:Masina[];
+    setUpdatedId :(setUpdatedId:number)=>void;
 }
 
-const  Home:React.FC<PageProps>=({setPage,cars})=>{
-
+const  Home:React.FC<PageProps>=({setPage,cars,setUpdatedId})=>{
 
 
 return(
@@ -29,7 +29,7 @@ return(
                 <tbody>
                     {
                         cars.map(car=>{
-                            return <Car car={car} key={car.id}/>
+                            return <Car setPage={setPage} setUpdatedId={setUpdatedId} car={car} key={car.id}/>
                         })
                         
                     }

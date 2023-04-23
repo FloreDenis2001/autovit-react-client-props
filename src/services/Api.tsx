@@ -83,7 +83,7 @@ class ServiceCar {
 
   deleteCar = async (masina: Masina) => {
     console.log(masina);
-    let data = await this.api<Masina, Masina>("/masini/removebyid/" + masina.id, "DELETE", masina, "");
+    let data = await this.api<Masina, Masina>("/masini/removebyid/" + masina.id,"DELETE",masina,"");
     try {
       if (data.status === 200) {
         return masina;
@@ -100,7 +100,7 @@ class ServiceCar {
   }
 
 
-  findCarById = async (id: String): Promise<Masina> => {
+  findCarById = async (id: number|undefined): Promise<Masina> => {
     let data = await this.api<null, Masina>("/masini/findById/" + id, "GET", null, "");
 
     if (data.status === 200) {
